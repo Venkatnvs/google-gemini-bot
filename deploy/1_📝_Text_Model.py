@@ -17,8 +17,18 @@ def gemini_text_bot(question):
 
 
 st.set_page_config(page_title="Gemini Text Bot",page_icon="🤖")
-st.header("Google Gemini Text Bot")
+st.header("📝 Google Gemini Text Bot")
+st.sidebar.markdown(
+"""
+# Gemini Bot
+### N venkat Swaroop (@venkatnvs)
 
+[Venkatnvs2005@gmail.com](mailto:venkatnvs2005@gmail.com)
+
+[`GitHub Repo`](https://github.com/Venkatnvs/google-gemini-bot/)
+[`LICENSE`](https://github.com/Venkatnvs/google-gemini-bot/blob/main/LICENSE)
+
+""")
 input  = st.text_input("Input: ",key="input")
 submit = st.button("Ask a Question")
 

@@ -21,6 +21,8 @@ st.header("📝 Google Gemini Text Bot")
 st.sidebar.markdown(
 """
 # Gemini Bot
+#### Only 1 request per min 
+
 ### N venkat Swaroop (@venkatnvs)
 
 [Venkatnvs2005@gmail.com](mailto:venkatnvs2005@gmail.com)

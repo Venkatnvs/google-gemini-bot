@@ -8,15 +8,17 @@ from PIL import Image
 
 gai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 model = gai.GenerativeModel("gemini-pro-vision")
+chat = model.start_chat(history=[])
 
 def gemini_img_bot(input,image):
     if input!="":
-        response = model.generate_content([input,image])
+        response = chat.send_message([input,image])
     else:
-        response = model.generate_content(image)
+        response = chat.send_message(image)
     return response.text
 
-
+if 'chats_pro' not in st.session_state:
+    st.session_state['chats_pro'] = []
 
 st.set_page_config(page_title="Gemini Image Bot",page_icon="🤖")
 st.header("🏞 Google Gemini Image Bot")
@@ -50,5 +52,13 @@ submit = st.button("Tell me about the image")
 
 if submit:
     rsp = gemini_img_bot(input,image)
+    st.session_state['chats_pro'].append(("BOT", {"text": rsp}))
+    st.session_state['chats_pro'].append(("YOU", {"text": input, "image": image}))
     st.subheader("Response: ")
-    st.write(rsp)
+    for i, (role, content) in enumerate(reversed(st.session_state['chats_pro'])):
+        role_emoji = "👤" if role == "YOU" else "🤖"
+        st.write(f"**{role_emoji} {role}:** {content['text']}")
+        if "image" in content:
+            st.image(content["image"], caption="Uploaded Image.", use_column_width=True)
+        if (i + 1) % 2 == 0:
+            st.write("")
